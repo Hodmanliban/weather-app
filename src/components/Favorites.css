@@ -1,0 +1,28 @@
+.favorites {
+    margin-bottom: 20px;
+  }
+  
+  .favorites h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .favorites-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .favorite-btn {
+    padding: 8px 12px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .favorite-btn:hover {
+    background-color: #d0eaff;
+  }
+  

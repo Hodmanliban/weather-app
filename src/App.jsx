@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import { fetchWeather, fetchForecast } from "./services/weatherServices"; 
+import SearchBar from "./components/SearchBar";
+import WeatherToday from "./components/WeatherToday";
+import Forecast from "./components/Forecast";
+import Favorites from "./components/Favorites";
+import Header from "./components/Header";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [city, setCity] = useState("Stockholm");
+  const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+
+
+  useEffect(() => {
+    const saved = localStorage.getItem("favorites");
+    if (saved) setFavorites(JSON.parse(saved));
+    fetchWeatherData(city);
+  }, [city]);
+
+
+  const fetchWeatherData = async (city) => {
+    const weatherData = await fetchWeather(city);
+    const forecastData = await fetchForecast(city);
+
+    setWeather(weatherData);
+    setForecast(forecastData);
+  };
+
+
+  const saveFavorite = () => {
+    if (!favorites.includes(city)) {
+      const updated = [...favorites, city];
+      setFavorites(updated);
+      localStorage.setItem("favorites", JSON.stringify(updated));
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="weather-app">
+      <Header />
+      <SearchBar city={city} setCity={setCity} />
+      <Favorites favorites={favorites} fetchWeather={fetchWeatherData} />
+      
+      {weather && forecast && (
+        <div className="weather-layout">
+          <WeatherToday weather={weather} />
+          <Forecast forecast={forecast} />
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
+
