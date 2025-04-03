@@ -12,23 +12,28 @@ function App() {
   const [forecast, setForecast] = useState(null);
   const [favorites, setFavorites] = useState([]);
 
-
+  // Ladda sparade favoritplatser + hämta väderdata direkt
   useEffect(() => {
     const saved = localStorage.getItem("favorites");
     if (saved) setFavorites(JSON.parse(saved));
     fetchWeatherData(city);
-  }, [city]);
+  }, []); // Hämtar väderdata en gång vid sidladdning
 
-
+  // Hämtar väderdata och prognos
   const fetchWeatherData = async (city) => {
-    const weatherData = await fetchWeather(city);
-    const forecastData = await fetchForecast(city);
+    try {
+      const weatherData = await fetchWeather(city);
+      const forecastData = await fetchForecast(city);
 
-    setWeather(weatherData);
-    setForecast(forecastData);
+      setWeather(weatherData);
+      setForecast(forecastData);
+    } catch (error) {
+      console.error("Fel vid hämtning av väderdata:", error);
+      alert("Det gick inte att hämta väderdata. Vänligen försök igen.");
+    }
   };
 
-
+  // Spara en favoritplats
   const saveFavorite = () => {
     if (!favorites.includes(city)) {
       const updated = [...favorites, city];
@@ -37,11 +42,18 @@ function App() {
     }
   };
 
+  // Ta bort senaste favorit
+  const removeFavorite = () => {
+    const updatedFavorites = favorites.slice(0, -1); // Tar bort den sista staden från listan
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Uppdaterar lokal lagring
+  };
+
   return (
     <div className="weather-app">
       <Header />
-      <SearchBar city={city} setCity={setCity} />
-      <Favorites favorites={favorites} fetchWeather={fetchWeatherData} />
+      <SearchBar city={city} setCity={setCity} fetchWeather={fetchWeatherData} saveFavorite={saveFavorite} />
+      <Favorites favorites={favorites} fetchWeather={fetchWeatherData} removeFavorite={removeFavorite} />
       
       {weather && forecast && (
         <div className="weather-layout">
@@ -54,4 +66,3 @@ function App() {
 }
 
 export default App;
-

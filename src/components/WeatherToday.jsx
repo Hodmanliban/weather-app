@@ -1,13 +1,12 @@
 import './WeatherToday.css';
 
-
 const translateWeatherDescription = (description) => {
   const translations = {
     "clear sky": "Klart väder",
     "few clouds": "Några moln",
     "scattered clouds": "Spridda moln",
     "broken clouds": "Delvis molnigt",
-    "overcast": "Helt molnigt",
+    "overcast clouds": "Helt molnigt",
     "shower rain": "Regnskur",
     "rain": "Regn",
     "thunderstorm": "Åska",
@@ -39,11 +38,11 @@ function WeatherToday({ weather }) {
         </div>
         <div className="weather-details">
           <p className="temperature">{Math.round(weather.main.temp)}°C</p>
-          <p>{translatedDescription}</p> {}
+          <p>{translatedDescription}</p> 
           <p>Känns som: {Math.round(weather.main.feels_like)}°C</p>
           <p>Luftfuktighet: {weather.main.humidity}%</p>
           <p>Vindhastighet: {weather.wind.speed} m/s</p>
-          <p>Molnighet: {weather.clouds.all}%</p> {}
+          <p>Molnighet: {weather.clouds.all}%</p>
         </div>
       </div>
     </div>

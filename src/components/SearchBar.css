@@ -1,16 +1,17 @@
+/* SearchBar.css */
 .search-bar {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: center; 
+    gap: 10px; /* Lägg till lite mellanrum mellan elementen */
+    justify-content: center; /* Centrerar innehållet horisontellt */
+    margin-bottom: 20px; /* Lite utrymme under sökfältet */
   }
   
   .search-bar input {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ddd; 
+    border: 1px solid #ddd; /* Ljusare kant för inputfältet */
     border-radius: 8px;
-    max-width: 250px; 
+    max-width: 250px; /* Maxbredd för inputfältet */
   }
   
   .search-bar button {
@@ -21,10 +22,17 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s;
-    max-width: 120px; 
   }
   
   .search-bar button:hover {
     background-color: #0056b3;
+  }
+  
+  .search-bar button[type="button"] {
+    background-color: #28a745; /* Grön färg för favoritknappen */
+  }
+  
+  .search-bar button[type="button"]:hover {
+    background-color: #218838; /* Mörkare grön vid hover */
   }
   

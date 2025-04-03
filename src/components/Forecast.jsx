@@ -47,6 +47,3 @@ function Forecast({ forecast }) {
 }
 
 export default Forecast;
-
-
-

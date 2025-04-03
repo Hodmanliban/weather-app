@@ -1,6 +1,8 @@
 .favorites {
     margin-bottom: 20px;
+   
   }
+
   
   .favorites h2 {
     font-size: 1.2rem;
@@ -11,6 +13,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    
   }
   
   .favorite-btn {
@@ -24,5 +27,22 @@
   
   .favorite-btn:hover {
     background-color: #d0eaff;
+  }
+  
+  .remove-favorite-btn {
+    padding: 10px 16px;
+    background-color: #ff5733;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 20px;
+    margin-left: 1px;
+    
+  }
+  
+  .remove-favorite-btn:hover {
+    background-color: #e64a19;
+    
   }
   
